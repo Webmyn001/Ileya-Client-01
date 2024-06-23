@@ -56,7 +56,7 @@ function Details() {
 
         
          <h1 className='pt-2 font-semibold '>Next of Kin Name:</h1>
-         <h1 className='px-2'>{data.NOK}</h1>
+         <h1 className='px-2'>{data.NOKName}</h1>
 
          <h1 className='pt-2 font-semibold '>Next of Kin Number:</h1>
          <h1 className='px-2'>{data.NOK}</h1>
