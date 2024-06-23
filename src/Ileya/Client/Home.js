@@ -63,7 +63,7 @@ function Home() {
             {/* Nabar  */}
     <div className='fixed left-0 right-0 bottom-1' >
         <div className='flex items-center justify-center '>
-            <div className='bg-[#323232]  flex justify-center items-center gap-x-[30px] sm:gap-x-[50px] rounded-xl shadow-lg w-1/2 sm:w-1/3 h-8'>
+            <div className='bg-[#525252]  flex justify-center items-center gap-x-[30px] sm:gap-x-[50px] rounded-xl shadow-lg w-1/2 sm:w-1/3 h-8'>
                <button className='text-black opacity-100 font-jost font-bold text-2xl' onClick={CancelForm}><IoHome/></button>
                <button  onClick={handleClick} className='text-black opacity-100 font-jost font-bold text-2xl'><FaFileCirclePlus/></button>
            </div>
