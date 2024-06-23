@@ -35,7 +35,7 @@ const [FormData, SetFormData] = useState([])
         }, [])
 
   return (
-    <div className='font-josefins bg-[#f5f5f5]'>
+    <div className='font-josefins bg-[#ddd0c8]'>
        <Router>
             <Navbar/>
        
