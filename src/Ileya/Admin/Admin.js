@@ -20,10 +20,10 @@ function Admin(props) {
   
   { props.FormData.length === 0 ? 
           <div className={`min-h-screen  flex ${props.loading ? "block" : "hidden"} font-montserat text-xl font-semibold justify-center items-center`}>  This List is Empty</div>  :
-     <table className="text-center table-auto ">
-            <tbody className="border border-[#323232]">
-            <tr className="border border-[#323232]">
-                <th className="border border-[#323232] px-2">S/N</th>
+     <table className="text-center table-auto mx-2">
+            <tbody className="border border-[#323232] ">
+            <tr className="border border-[#323232] ">
+                <th className="border border-[#323232]  px-2">S/N</th>
                 <th className="border border-[#323232]">Name</th>
                 <th className="border border-[#323232] px-2">Phone Number</th>
 

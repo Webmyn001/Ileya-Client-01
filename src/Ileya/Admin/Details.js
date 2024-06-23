@@ -35,34 +35,34 @@ function Details() {
        <div className='bg-white w-[350px] pb-3  pt-3 rounded-2xl shadow-xl shadow-[#323232] flex flex-col items-center justify-center h-fit'>
         
          <h1 className='pt-2 font-semibold '>Name: </h1>
-         <h1 className='px-2'>{data.Name}</h1>
+         <h1 className='px-2 text-center'>{data.Name}</h1>
 
          <h1 className='pt-2 font-semibold '> Address: </h1>
-         <h1 className='px-2'>{data.Address}</h1>
+         <h1 className='px-2 text-center'>{data.Address}</h1>
 
          <h1 className='pt-2 font-semibold '>Phone Number:</h1>
-         <h1 className='px-2'>{data.PhoneNo}</h1>
+         <h1 className='px-2 text-center'>{data.PhoneNo}</h1>
 
        
          <h1 className='pt-2 font-semibold '>Bank Name:</h1>
-         <h1 className='px-2'>{data.BankName}</h1>
+         <h1 className='px-2 text-center'>{data.BankName}</h1>
       
 
          <h1 className='pt-2 font-semibold '>Account Name:</h1>
-         <h1 className='px-2' >{data.AcctName}</h1>
+         <h1 className='px-2 text-center' >{data.AcctName}</h1>
 
          <h1 className='pt-2 font-semibold '>Account Number:</h1>
-         <h1 className='px-2' >{data.AcctNo}</h1>
+         <h1 className='px-2 text-center' >{data.AcctNo}</h1>
 
         
          <h1 className='pt-2 font-semibold '>Next of Kin Name:</h1>
-         <h1 className='px-2'>{data.NOKName}</h1>
+         <h1 className='px-2 text-center'>{data.NOKName}</h1>
 
          <h1 className='pt-2 font-semibold '>Next of Kin Number:</h1>
-         <h1 className='px-2'>{data.NOK}</h1>
+         <h1 className='px-2 text-center'>{data.NOK}</h1>
 
          <h1 className='pt-2 font-semibold '>Marital Status:</h1>
-         <h1 className='px-2'>{data.Marital}</h1>
+         <h1 className='px-2 text-center'>{data.Marital}</h1>
       
 
 
