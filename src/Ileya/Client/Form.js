@@ -77,7 +77,7 @@ function Form() {
 
   return (
     <div className='flex  justify-center items-center'>
-        <div className='sm:w-2/3 w-full flex justify-center bg-[#DDD0C8] h-[520px]  rounded-b-[55px] shadow-2xl'>
+        <div className='sm:w-2/3 w-full flex justify-center bg-[#DDD0C8] h-[550px]  rounded-b-[55px] shadow-2xl'>
          
         <form className=' w-[200px] sm:w-[280px] mt-[25px]' onSubmit={saveForm} encType="multipart/form-data">
         <h2 className='font-monserat text-center text-white bg-[#323232] mt-2 py-[1px] rounded-md text-[15px]  font-bold mb-4'>Kindly fill the form below</h2>
