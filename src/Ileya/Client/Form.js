@@ -2,130 +2,232 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from './Button'
-import {  Oval } from 'react-loader-spinner'
+import { Oval } from 'react-loader-spinner'
 
 function Form() {
-  const [Loading, setLoading] =useState(false)
-  const [Name, setName] = useState("")
-  const [Address, setAddress] = useState("")
-  const [PhoneNo, setPhoneNo] = useState("")
-  const [BankName, setBankName] = useState("")
-  const [AcctName, setAcctName] = useState("")
-  const [AcctNo, setAcctNo] = useState("")
-  const [NOK, setNOK] = useState("")
-  const [NOKName, setNOKName] = useState("")
-  const [Marital, setMarital] = useState("")
+  const [loading, setLoading] = useState(false)
+ const [formData, setFormData] = useState({
+  Name: "",
+  Address: "",
+  PhoneNo: "",
+  BankName: "",
+  AcctName: "",
+  AcctNo: "",
+  NOK: "",        // Changed from nok
+  NOKName: "",    // Changed from nokName
+  Marital: ""
+})
 
+const navigate = useNavigate()
 
-  const OnchangeName =(e)=> {
-    setName(e.target.value)
-  }
+const handleChange = (e) => {
+  const { name, value } = e.target
+  setFormData(prev => ({ ...prev, [name]: value }))
+}
 
-  const OnchangeAddress =(e)=> {
-    setAddress(e.target.value)
-  }
-
-  const OnchangePhoneNo =(e)=> {
-    setPhoneNo(e.target.value)
-  }
-
-  const OnchangeBankName =(e)=> {
-    setBankName(e.target.value)
-  }
-
-  const OnchangeAcctName =(e)=> {
-    setAcctName(e.target.value)
-  }
-
-  const OnchangeAcctNo =(e)=> {
-    setAcctNo(e.target.value)
-  }
-
-  const OnchangeNOK =(e)=> {
-    setNOK(e.target.value)
-  }
-
-  const OnchangeNOKName =(e)=> {
-    setNOKName(e.target.value)
-  }
-
-  const OnchangeMarital =(e)=> {
-    setMarital(e.target.value)
-  }
-
+const saveForm = async (e) => {
+  e.preventDefault()
+  setLoading(true)
   
-  const navigate = useNavigate()
-  
-  const saveForm = async (e) => {
-    setLoading(true)
-   e.preventDefault();
-    axios.post("https://ileya-backend.vercel.app/api/form/add",{Name, Address, PhoneNo, BankName, AcctName, AcctNo, NOK, NOKName , Marital, NOKName})
-   .then((res)=>
-   { 
-   console.log("saved succesfully")
-   navigate("/");
-   window.location.reload() 
-   alert("Thank you! Response recieved, We will get back to you on Whatsapp.")
+  try {
+    await axios.post("https://ileya-backend.vercel.app/api/form/add", formData)
+    alert("Thank you! Response received. We'll contact you via WhatsApp soon.")
+    
+    // Reset form fields to empty values
+    setFormData({
+      Name: "",
+      Address: "",
+      PhoneNo: "",
+      BankName: "",
+      AcctName: "",
+      AcctNo: "",
+      NOK: "",
+      NOKName: "",
+      Marital: ""
+    })
+    
+    navigate("/")
+  } catch (err) {
+    console.error("Submission error:", err)
+    alert("Unable to submit form. Please check your connection and try again.")
+  } finally {
+    setLoading(false)
+  }
+}
 
- }).catch((err)=> {
-     console.log(err)
-     alert("Unable to submit form, kindly complete the form or ensure internet connection.")
-     setLoading(false)
-   })
-   
- }
 
   return (
-    <div className='flex  justify-center items-center'>
-        <div className='sm:w-2/3 w-full flex justify-center bg-[#DDD0C8] h-[550px]  rounded-b-[55px] shadow-2xl'>
-         
-        <form className=' w-[200px] sm:w-[280px] mt-[25px]' onSubmit={saveForm} encType="multipart/form-data">
-        <h2 className='font-monserat text-center text-white bg-[#323232] mt-2 py-[1px] rounded-md text-[15px]  font-bold mb-4'>Kindly fill the form below</h2>
-            <input placeholder='Full Name'  value={Name} onChange={OnchangeName} required
-                className='w-full border-l-[1px] border-b-[1px] focus:outline-0 px-3 border-r-[1px] text-[14px] pb-[3.5px] mb-4 rounded-md bg-[#f0ffff] border-[#323232] text-[#323232]  '/>
-
-<input placeholder='Home Address'  value={Address} onChange={OnchangeAddress} required
-                className='w-full border-l-[1px] border-b-[1px] focus:outline-0 border-r-[1px] px-3 text-[14px] pb-[3.5px] mb-4 rounded-md  border-[#323232] text-[#323232] bg-[#f0ffff] '/>
-
-<input placeholder='Phone Number' type="Number"  value={PhoneNo} onChange={OnchangePhoneNo} required
-                className='w-full border-l-[1px] border-b-[1px] border-r-[1px] focus:outline-0 px-3 text-[14px] pb-[3.5px] mb-4 rounded-md border-[#323232] text-[#323232] bg-[#f0ffff]  '/>
-
-<input placeholder='Bank Name'  value={BankName} onChange={OnchangeBankName} required
-                className='w-full border-l-[1px] border-b-[1px] border-r-[1px] focus:outline-0 px-3 text-[14px] pb-[3.5px] mb-4 rounded-md border-[#323232] text-[#323232] bg-[#f0ffff] '/>
-
-<input placeholder='Account Name'  value={AcctName} onChange={OnchangeAcctName} required
-                className='w-full border-l-[1px] border-r-[1px] border-b-[1px] focus:outline-0 px-3 text-[14px] pb-[3.5px] mb-4 rounded-md border-[#323232] text-[#323232] bg-[#f0ffff]  '/>
-
-<input placeholder='Account Number' type="Number" value={AcctNo} onChange={OnchangeAcctNo} required
-                className='w-full border-l-[1px] border-r-[1px] border-b-[1px] focus:outline-0 px-3 mb-4 text-[14px] pb-[3.5px] rounded-md border-[#323232] text-[#323232] bg-[#f0ffff]  '/>
-
-
-<input placeholder='Name of Next Of Kin'  value={NOKName} onChange={OnchangeNOKName} required
-                className='w-full border-l-[1px] border-r-[1px] border-b-[1px] focus:outline-0 px-3 text-[14px] mb-4 pb-[3.5px] rounded-md border-[#323232] text-[#323232] bg-[#f0ffff] '/>
-
-<input placeholder='Next Of Kin Phone Number'  value={NOK} type="Number"  onChange={OnchangeNOK} required
-                className='w-full border-l-[1px] border-r-[1px] border-b-[1px] focus:outline-0 px-3 text-[14px] mb-4 pb-[3.5px] rounded-md border-[#323232] text-[#323232] bg-[#f0ffff] '/>
-
-
-
-<label for="Marital status" className="font-semibold mb-4 text-[#323232]  text-[14px]">Marital status :</label>
-                <select name="Marital status" onChange={OnchangeMarital} className=" focus:outline-0  px-3  " >
-                   <option value={false} className ="disabled: text-[#323232]" >Select</option>
-                    <option value="Single" className="text-[#323232]">Single</option>
-                    <option value="Married" className="text-[#323232]">Married</option>
-                    <option value="Divorced" className="text-[#323232]">Divorced</option>
-                    <option value="other" className="text-[#323232]">Other</option>
-                </select>
-        
-          
-            
-             {/* Upload button */}
-             <div className='flex justify-center items-center mb-2'>
-                {Loading ? <div className='pt-5 pb-2'><Oval height="30" width="30" radius="4" color="#323232" ariaLabel="loading"/> </div> : <Button name="Submit"/>}
-             </div>
-          </form>
-        
+    <div className="flex justify-center items-center py-8 px-4">
+      <div className="w-full max-w-3xl bg-gradient-to-br from-[#f5f0e8] to-[#e2d9cf] rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-[#323232] py-4">
+          <h2 className="text-center text-white font-bold text-lg md:text-xl tracking-wide">
+            Kindly fill the form below
+          </h2>
         </div>
+        
+        <form 
+          onSubmit={saveForm} 
+          className="p-4 sm:p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-5"
+        >
+          {/* Column 1 */}
+          <div className="space-y-5">
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Full Name
+              </label>
+              <input
+                name="Name"
+                value={formData.Name}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232] placeholder-gray-400"
+                placeholder="John Doe"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Home Address
+              </label>
+              <input
+                name="Address"
+                value={formData.Address}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232] placeholder-gray-400"
+                placeholder="123 Main Street"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Phone Number
+              </label>
+              <input
+                name="PhoneNo"
+                type="tel"
+                value={formData.PhoneNo}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232] placeholder-gray-400"
+                placeholder="08012345678"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Bank Name
+              </label>
+              <input
+                name="BankName"
+                value={formData.BankName}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232] placeholder-gray-400"
+                placeholder="Access Bank"
+              />
+            </div>
+          </div>
+          
+          {/* Column 2 */}
+          <div className="space-y-5">
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Account Name
+              </label>
+              <input
+                name="AcctName"
+                value={formData.AcctName}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232] placeholder-gray-400"
+                placeholder="John Doe"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Account Number
+              </label>
+              <input
+                name="AcctNo"
+                type="number"
+                value={formData.AcctNo}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232] placeholder-gray-400"
+                placeholder="0123456789"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Next of Kin Name
+              </label>
+              <input
+                name="NOKName"
+                value={formData.NOKName}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232] placeholder-gray-400"
+                placeholder="Jane Smith"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Next of Kin Phone
+              </label>
+              <input
+                name="NOK"
+                type="tel"
+                value={formData.NOK}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232] placeholder-gray-400"
+                placeholder="08087654321"
+              />
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="text-[#323232] text-sm font-medium mb-1 pl-1">
+                Marital Status
+              </label>
+              <select
+                name="Marital"
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#323232] focus:border-transparent transition-all bg-white text-[#323232]"
+              >
+                <option value="">Select Status</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          
+          {/* Submit Button */}
+          <div className="md:col-span-2 flex justify-center mt-4">
+            {loading ? (
+              <div className="py-2">
+                <Oval 
+                  height={36}
+                  width={36}
+                  color="#323232"
+                  secondaryColor="#DDD0C8"
+                  ariaLabel="loading"
+                />
+              </div>
+            ) : (
+              <Button className="w-full max-w-xs py-3 text-lg">
+                Submit Form
+              </Button>
+            )}
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
